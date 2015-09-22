@@ -3,9 +3,13 @@
 ## and only changed var names and calls from "mean" to "solve"/"inverse"
 ## but the solution works
 
+
+
 ## Instantiates a "special matrix" object with 4 methods
 ## (data setter, data getter, inverse setter and inverse getter)
-## line 15 ensures that every time data is changed, the inverse is reset,
+## <<- needs to be used instead of <- to ensure that changes to "instance variables"
+## are persisted (with "<-", changes would get lost upon function completion
+## line 19 ensures that every time data is changed, the inverse is reset,
 ## therefore cachSolve will re-calculate it as opposed to using a cached value
 
 makeCacheMatrix <- function(x = matrix()) {
@@ -23,10 +27,12 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
+
+
 ## Takes "special matrix" as an argument;
-## tries to loop up inverse (stored previously) using the getter method, if found, returns it;
-## if not found, calculates the inverse using native solve() and stores is
-## in the "super-matrix" instance using the setter method
+## tries to look up "inverse" (stored previously) using the getter method, if found, returns it;
+## if not found, calculates the inverse using native solve() and stores it
+## in the "special matrix" instance using the setter method
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
